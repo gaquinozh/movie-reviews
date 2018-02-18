@@ -3,6 +3,7 @@ import * as actions from "./movies-actions";
 const initialState = {
   overviews: {},
   displayList: [],
+  details: {},
   activeMovie: undefined
 };
 
@@ -22,6 +23,15 @@ export default function moviesReducer(state, action) {
         ...state,
         overviews,
         displayList
+      };
+
+    case actions.MOVIE_DETAIL_DATA_RECEIVED:
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          [payload.id]: payload.movie
+        }
       };
 
     default:
