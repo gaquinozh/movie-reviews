@@ -9,8 +9,7 @@ Eject Webpack
 Read the [Readme](create-react-app-readme.md) and follow the instructions up to
 (not including) adding Bootstrap.
 
-Remove the call to `registerServiceWorker()` from [`src/index.js`](src/index.js).  
-
+Remove the call to `registerServiceWorker()` from [`src/index.js`](src/index.js).
 
 ## First Component
 
@@ -31,12 +30,12 @@ Download the foundation settings file from
 Remove the existing css files and create a new index.scss and \_app.scss file.
 Add the following to the index.scss file:
 
- @import './settings';
+@import './settings';
 @import 'foundation';
 
- @include foundation-everything;
+@include foundation-everything;
 
- @import './app';
+@import './app';
 
 Install the sass loader
 
@@ -100,8 +99,8 @@ Add the Provider to the index.js file in the ReactDOM.render() argument.
 
 Create the `MOVIE_DATA_RECEIVED` action and export all actions in movies/index.
 
-Create a new component `MovieContainer` that renders a `<MovieList>`.
-Connect the `MovieContainer` to the store and pass in the `movies` list (using a selector)
+Create a new component `MovieListContainer` that renders a `<MovieList>`.
+Connect the `MovieListContainer` to the store and pass in the `movies` list (using a selector)
 and the `movieDataReceived` action as props.
 
 Import the movieData fixture and trigger the movieDataReceived
@@ -115,6 +114,43 @@ Convert the array into an object using Array.reduce(). Create the displayList
 using Array.map().
 
 Check the Redux inspector and the React inspector if everyting is working correctly.
+
+### 1.2 Add the Detail View and the Router
+
+Add the detail data (JSON file) to the `__fixtures__` folder. For this excercise we only provide details for one movie.
+Remember the ID of that movie.
+
+If you haven't yet, install `react-router-dom`.
+
+Create the `MOVIE_DETAIL_DATA_RECEIVED` action and the `movieDetailDataReceived` action creator.
+The payload has the properties `id` and `movie`.
+
+Add the `details` property to the movies reducer.
+The `MOVIE_DETAIL_DATA_RECEIVED` reducer function updates the `details[id]` value with the response from the server.
+Make sure not to mutate any state.
+
+Add the `movie` selector function to the movie selectors. The function should take the state and the movie id as an
+argument and return a movie object.
+
+Create the `MovieDetail` component as FSC. Use a placeholder for the content for now.
+The component takes one property `movie`.
+Make sure the component can render itself if `props.movie` is not defined.
+
+Create the `MovieDetailContainer` component. Connect it to the redux store. The `mapStateToProps` function uses the
+movie selector. Take the movie id from the router match params `id`. (The route is still to be defined).
+Pass the `movieDetailDataReceived` action to the container component in the actions object.
+
+Call the `movieDetailDataReceived` action in the `componentDidMount` lifecycle method
+with the id of the movie and the imported fixture data.
+
+Update the `App` component:
+Add the `BrowserRouter` and the two routes for `/` and `/movies/:id`. The root path
+maps to the `MovieListContainer`, the detail path maps to the `MovieDetailContainer`.
+
+Add a `Link` to the detail page to the `MovieListEntry` component.
+
+Finish the `MovieDetail` component. Add the title and some properties from the data.
+Do not forget the link back to the list view.
 
 ## Testing with Jest
 
