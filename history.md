@@ -5,18 +5,18 @@
 Install create-react-app if you didn't already
 
     yarn global add create-react-app
-    
-Create a new App-Project 
+
+Create a new App-Project
 
     create-react-app movie-reviews
     cd movie-reviews
     yarn start
-    
+
 Now open the folder in your favourite IDE or editor and open App.js in the src/
 
-Change "App-title" to Hello World 
+Change "App-title" to Hello World
 
-Changes should immediately be visible in the browser. 
+Changes should immediately be visible in the browser.
 
 Now eject Webpack
 
@@ -174,4 +174,4 @@ Do not forget the link back to the list view.
 
 Install Enzyme and configure it according to the [Readme](create-react-app-readme.md#testing-components).
 
-    yarn add enzyme enzyme-adapter-react-16 react-test-renderer
+    yarn add enzyme enzyme-adapter-react-16 enzyme-to-json react-test-renderer
