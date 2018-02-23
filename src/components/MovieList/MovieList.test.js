@@ -5,7 +5,7 @@ import { shallow } from "enzyme";
 import { MovieListContainer } from "./MovieListContainer";
 
 describe("MovieListContainer", () => {
-  it("contains MovieList", () => {
+  it("contains MovieList and calls movieDataReceived", () => {
     const movieDataReceived = jest.fn();
     const wrapper = shallow(
       <MovieListContainer movieDataReceived={movieDataReceived} movies={[]} />

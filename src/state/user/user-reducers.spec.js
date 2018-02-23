@@ -1,7 +1,9 @@
 import React from "react";
+import userReducer from "./user-reducers";
 
-describe("User Reducers", () => {
-  it("just passes", () => {
-    expect(true).toBeTruthy();
+describe("user-reducer", () => {
+  const reducer = userReducer();
+  it('expects username to be "Simon" at initialState', () => {
+    expect(reducer.username).toBe("Simon");
   });
 });
