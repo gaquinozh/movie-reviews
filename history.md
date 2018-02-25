@@ -5,18 +5,18 @@
 Install create-react-app if you didn't already
 
     yarn global add create-react-app
-    
-Create a new App-Project 
+
+Create a new App-Project
 
     create-react-app movie-reviews
     cd movie-reviews
     yarn start
-    
+
 Now open the folder in your favourite IDE or editor and open App.js in the src/
 
-Change "App-title" to Hello World 
+Change "App-title" to Hello World
 
-Changes should immediately be visible in the browser. 
+Changes should immediately be visible in the browser.
 
 Now eject Webpack
 
@@ -175,3 +175,33 @@ Do not forget the link back to the list view.
 Install Enzyme and configure it according to the [Readme](create-react-app-readme.md#testing-components).
 
     yarn add enzyme enzyme-adapter-react-16 react-test-renderer
+
+## Immutable.js
+
+Install Immutable.js and Redux-Immutable:
+
+    yarn add immutable redux-immutable
+
+Install the Immutable.js Object Formatter Chrome Extension and restart Dev-Tools.
+
+Create the `MovieInfo` Record in `state/movies/movie-models.js` and export it
+in `state/movies/index.js`. Check which properties you actually use in the view
+and just add those. Think of sane default properties.
+
+Replace the `combineReducers` method in the root-reducer.
+
+Refactor the user reducer so it is a `Immutable.Map`.
+
+Refactor the movies reducer to use Immutable.js objects.
+Use `fromJS` to convert the initialState into an Immutable.js structure.
+Keep in mind that Maps can have integer keys while Javascript objects cannot.
+
+Use the `MovieInfo` record here for the list and detail reducers. In the list view
+the record takes the list item. In the detail view it takes the 'info' property.
+
+Update the movies-selectors to use `getIn`.
+
+Create the `toJS` component. Use the code from the
+[Redux Docs](https://redux.js.org/recipes/#using-immutable.js-with-redux).
+
+Wrap the `MovieList` and `MovieDetail` components with the toJS HOC.

@@ -1,38 +1,43 @@
+import { fromJS, Map } from "immutable";
 import * as actions from "./movies-actions";
+import { MovieInfo } from "./movies-models";
 
-const initialState = {
+const initialState = fromJS({
   overviews: {},
   displayList: [],
   details: {},
+  genres: {},
   activeMovie: undefined
-};
+});
 
 export default function moviesReducer(state, action) {
   const payload = action.payload;
 
   switch (action.type) {
     case actions.MOVIE_DATA_RECEIVED:
-      const overviews = payload.movies.reduce((acc, movie) => {
-        acc[movie.id] = movie;
-        return acc;
-      }, {});
+      // convert the movie Array to a Immutable List
+      const movies = fromJS(payload.movies)
+        // Create Movie Record instances from the payload.
+        .map(movie => new MovieInfo(movie));
 
-      const displayList = payload.movies.map(movie => movie.id);
+      // Create the id mapped object
+      const overviews = movies.reduce((acc, movie) => {
+        return acc.set(movie.id, movie);
+      }, Map());
 
-      return {
-        ...state,
-        overviews,
-        displayList
-      };
+      const displayList = movies.map(movie => movie.id);
+
+      return state.set("overviews", overviews).set("displayList", displayList);
 
     case actions.MOVIE_DETAIL_DATA_RECEIVED:
-      return {
-        ...state,
-        details: {
-          ...state.details,
-          [payload.id]: payload.movie
-        }
-      };
+      const movieInfo = new MovieInfo(fromJS(payload.movie.info));
+      return state.setIn(
+        ["details", payload.id],
+        Map({
+          info: movieInfo,
+          reviews: payload.movie.reviews
+        })
+      );
 
     default:
       return initialState;
