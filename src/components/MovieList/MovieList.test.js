@@ -64,7 +64,7 @@ describe("MovieList", () => {
       }
     ];
     const wrapper = shallow(<MovieList movies={movies} />);
-    expect(wrapper.find(".cell")).toHaveLength(2);
+    expect(wrapper.find(MovieListEntry)).toHaveLength(2);
   });
 });
 
@@ -76,6 +76,8 @@ describe("MovieListEntry", () => {
       poster_path: ""
     };
     const wrapper = shallow(<MovieListEntry movie={movie} />);
-    expect(wrapper.find(".h4").text()).toEqual(movieTitle);
+    expect(wrapper.find('[data-test-id="title-text"]').text()).toEqual(
+      movieTitle
+    );
   });
 });
