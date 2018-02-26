@@ -12,8 +12,8 @@ export function* loadMovies(get) {
   }
 }
 
-export function* loadMovieDetails(get, payload) {
-  const { id } = payload;
+export function* loadMovieDetails(get, action) {
+  const { id } = action.payload;
   try {
     const movie = yield call(get, `${BACKEND_URL}/movies/${id}`);
     yield put(actions.movieDetailDataReceived(id, movie.data));

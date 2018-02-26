@@ -10,7 +10,7 @@ const initialState = fromJS({
   activeMovie: undefined
 });
 
-export default function moviesReducer(state, action) {
+export default function moviesReducer(state = initialState, action) {
   const payload = action.payload;
 
   switch (action.type) {
@@ -35,11 +35,11 @@ export default function moviesReducer(state, action) {
         ["details", payload.id],
         Map({
           info: movieInfo,
-          reviews: payload.reviews
+          reviews: payload.movie.reviews
         })
       );
 
     default:
-      return initialState;
+      return state;
   }
 }

@@ -213,6 +213,8 @@ Restart the dev server.
 
 ## Redux-Saga
 
+### Excercise 1
+
 Install Redux-Saga and Axios
 
     yarn add redux-saga axios
@@ -244,6 +246,31 @@ triggers the `loadMovies` saga. Pass on the DI methods (get) here as well.
 Create the `loadMovieDetails` saga. This saga takes the get method and the action payload.
 It sends out a `movieDetailDataReceived` or a `movieLoadError` action.
 
+Trigger the `loadMovieDetails` action in the `MovieDetailContainer` component.
+
 Adjust the movies reducer to work with the new data structure that gets sent back from the API.
 
 Test the app. List and detail views should be working.
+
+### Excercise 2
+
+Create the `MovieReviews` component. Use the
+[Foundation helper classes](https://foundation.zurb.com/sites/docs/kitchen-sink.html) for easy formatting.
+
+Create the review actions for `SUBMIT_REVIEW_REQUESTED`, `SUBMIT_REVIEW_SUCCESS` and
+`SUBMIT_REVIEW_ERROR`. `submitReviewRequested` takes the movieId, reviewText and username.
+
+Maybe create a new selector that returns just the username. You can use `getIn` to get
+the property. It does not fail if `user` is not defined yet.
+
+Create the `AddReview` connected component. Use a textarea as the input element. Keep in mind
+that in React the textarea behaves like an input field.
+[Docs](https://reactjs.org/docs/forms.html#the-textarea-tag)
+
+The component should have an `onSubmit` handler for the form and an `onChange` handler for
+the input element.
+
+Connect the component to the state. Pass in the `username` prop and the `submitReviewRequested` action.
+The movieId should be passed in from the parent component.
+
+Check with the Redux-Devtools if the `SUBMIT_REVIEW_REQUESTED` action is sent out correctly.
