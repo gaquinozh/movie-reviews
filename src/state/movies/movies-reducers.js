@@ -33,11 +33,33 @@ export default function moviesReducer(state = initialState, action) {
       const movieInfo = new MovieInfo(fromJS(payload.movie));
       return state.setIn(
         ["details", payload.id],
-        Map({
+        fromJS({
           info: movieInfo,
           reviews: payload.movie.reviews
         })
       );
+
+    case actions.SUBMIT_REVIEW_REQUESTED:
+      return state.updateIn(["details", payload.movieId, "reviews"], reviews =>
+        reviews.push(fromJS({ ...payload, id: payload.placeholderId }))
+      );
+
+    case actions.SUBMIT_REVIEW_SUCCESS: {
+      const review = payload.review;
+
+      return state.updateIn(["details", review.movieId, "reviews"], reviews =>
+        reviews
+          .filter(r => r.get("id") !== payload.placeholderId)
+          .push(fromJS(review))
+      );
+    }
+
+    case actions.SUBMIT_REVIEW_ERROR: {
+      return state.updateIn(
+        ["details", payload.review.movieId, "reviews"],
+        reviews => reviews.filter(r => r.get("id") !== payload.placeholderId)
+      );
+    }
 
     default:
       return state;

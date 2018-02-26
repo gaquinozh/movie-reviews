@@ -27,15 +27,21 @@ export const movieLoadError = (error, payload) => ({
 });
 
 export const SUBMIT_REVIEW_REQUESTED = "SUBMIT REVIEW REQUESTED";
-export const submitReviewRequested = (movieId, reviewText, username) => ({
+export const submitReviewRequested = (
+  movieId,
+  content,
+  author,
+  publication_date,
+  placeholderId
+) => ({
   type: SUBMIT_REVIEW_REQUESTED,
-  payload: { movieId, reviewText, username }
+  payload: { movieId, content, author, publication_date, placeholderId }
 });
 
 export const SUBMIT_REVIEW_SUCCESS = "SUBMIT REVIEW SUCCESS";
-export const submitReviewSuccess = review => ({
+export const submitReviewSuccess = (review, placeholderId) => ({
   type: SUBMIT_REVIEW_SUCCESS,
-  payload: { review }
+  payload: { review, placeholderId }
 });
 
 export const SUBMIT_REVIEW_ERROR = "SUBMIT REVIEW ERROR";

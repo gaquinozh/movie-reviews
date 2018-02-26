@@ -258,7 +258,9 @@ Create the `MovieReviews` component. Use the
 [Foundation helper classes](https://foundation.zurb.com/sites/docs/kitchen-sink.html) for easy formatting.
 
 Create the review actions for `SUBMIT_REVIEW_REQUESTED`, `SUBMIT_REVIEW_SUCCESS` and
-`SUBMIT_REVIEW_ERROR`. `submitReviewRequested` takes the movieId, reviewText and username.
+`SUBMIT_REVIEW_ERROR`. `submitReviewRequested` payload should have
+the fields `movieId`, `content`, `author` and `publication_date` so it matches the backend API.
+Add the field `placeholderId` as well for the optimistic UI update.
 
 Maybe create a new selector that returns just the username. You can use `getIn` to get
 the property. It does not fail if `user` is not defined yet.
@@ -268,9 +270,35 @@ that in React the textarea behaves like an input field.
 [Docs](https://reactjs.org/docs/forms.html#the-textarea-tag)
 
 The component should have an `onSubmit` handler for the form and an `onChange` handler for
-the input element.
+the input element. The onSubmit handler fills in the `author` and the `publication_date` fields
+as well. The `placeholderId` should be a unique string (e.g. the current date).
 
 Connect the component to the state. Pass in the `username` prop and the `submitReviewRequested` action.
 The movieId should be passed in from the parent component.
 
 Check with the Redux-Devtools if the `SUBMIT_REVIEW_REQUESTED` action is sent out correctly.
+
+### Excercise 3
+
+Create the `submitMovieReivew` saga. Inject axios.post.
+If you have not already done so in the component, extend the payload with
+the `publication_date` property that contains the current date as ISO string.
+
+Send the call to the backend and put a `submitReviewSuccess` action with the response data.
+
+In case of error, send out a `submitReviewError` action with the error and the original payload.
+
+Do not add the submitMovieReview saga to the `moviesSaga` yet. Test the reducer first.
+
+Create a reducer for the `SUBMIT_REVIEW_REQUESTED` that adds the review to the
+`details.<movieId>.reviews` state. Convert the payload to Immutable.
+
+Test the form. If you submit a review it should appear in the review list.
+
+Add the submitMovieReview saga to the `moviesSaga` and test it by submitting a new review.
+It should now stay even if you reload the page.
+
+Create the `SUBMIT_REVIEW_SUCCESS` reducer. You could replace the placeholder entry with the
+real entry that got sent back from the server, but don't have to.
+
+Create the `SUBMIT_REVIEW_ERROR` reducer. Remove the placeholder entry.

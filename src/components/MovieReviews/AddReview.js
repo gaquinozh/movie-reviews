@@ -10,10 +10,13 @@ export class AddReviewComponent extends Component {
 
   onSubmit = event => {
     event.preventDefault();
+    const now = new Date();
     this.props.submitReviewRequested(
       this.props.movieId,
       this.state.text,
-      this.props.username
+      this.props.username,
+      now.toISOString(),
+      now.toString()
     );
     this.setState({
       text: ""
