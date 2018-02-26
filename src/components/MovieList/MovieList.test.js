@@ -18,7 +18,7 @@ describe("MovieListContainer", () => {
 describe("MovieList", () => {
   it("renders without crashing", () => {
     const wrapper = shallow(<MovieList movies={[]} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toHaveLength(1);
   });
 
   it("renders 0 items when movies are empty", () => {
