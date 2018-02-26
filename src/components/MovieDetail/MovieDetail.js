@@ -13,7 +13,9 @@ export default function MovieDetail(props) {
   }`;
 
   const genres = info.genres.map(genre => (
-    <span className="genre label">{genre.name}</span>
+    <span className="genre label" key={genre.id}>
+      {genre.name}
+    </span>
   ));
 
   return (

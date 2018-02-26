@@ -5,18 +5,18 @@
 Install create-react-app if you didn't already
 
     yarn global add create-react-app
-    
-Create a new App-Project 
+
+Create a new App-Project
 
     create-react-app movie-reviews
     cd movie-reviews
     yarn start
-    
+
 Now open the folder in your favourite IDE or editor and open App.js in the src/
 
-Change "App-title" to Hello World 
+Change "App-title" to Hello World
 
-Changes should immediately be visible in the browser. 
+Changes should immediately be visible in the browser.
 
 Now eject Webpack
 
@@ -172,6 +172,51 @@ Do not forget the link back to the list view.
 
 ## Testing with Jest
 
-Install Enzyme and configure it according to the [Readme](create-react-app-readme.md#testing-components).
+### Setting up Test Environment
 
-    yarn add enzyme enzyme-adapter-react-16 react-test-renderer
+Install Enzyme. It might be usefull to read this [Readme](create-react-app-readme.md#testing-components) section.
+
+    yarn add enzyme enzyme-adapter-react-16 enzyme-to-json react-test-renderer
+
+Create a setupTest.js File in the src/ folder.
+
+In this file configure an Adapter for enzyme.
+
+    import { configure } from 'enzyme';
+    import Adapter from 'enzyme-adapter-react-16';
+
+    configure({ adapter: new Adapter() });
+
+Now link the setup script to jest in your package.json
+
+    "jest": {
+      ...
+      "setupFiles": [
+        "<rootDir>/config/polyfills.js",
+        "<rootDir>/src/setupTest.js"
+      ],
+      ...
+    }
+
+### Start writing some tests
+
+Jest will match every file placed in a \_\_tests\_\_ folder or every File that ends with .spec.js or .test.js
+Since create-react-app comes with a App.test.js file we should already be able to run our tests.
+
+    yarn test
+
+Create a test file for each component we created so far then rerun the tests
+this time with the argument --coverage
+
+    yarn test --coverage
+
+This gives you an idea of how complete your tests are.
+
+Write tests to reach the most highest test coverage. Start by testing the Components first.
+
+Test your reducers, selectors and actions - Keep in mind that those are just pure functions.
+
+Advanced: Try to test a connected component.
+
+You might make use of redux-mock-store to dispatch some redux actions.
+A simple doc can be found [here](http://arnaudbenard.com/redux-mock-store/)
