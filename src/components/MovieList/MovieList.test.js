@@ -2,7 +2,10 @@ import React from "react";
 import MovieList from "./MovieList";
 import MovieListEntry from "./MovieListEntry";
 import { shallow } from "enzyme";
-import { MovieListContainer } from "./MovieListContainer";
+import ConnectedMovieListContainer, {
+  MovieListContainer
+} from "./MovieListContainer";
+import { mountWithProvider } from "../../utils/mountWithProvider";
 
 describe("MovieListContainer", () => {
   it("contains MovieList and calls movieDataReceived", () => {
@@ -69,7 +72,7 @@ describe("MovieList", () => {
 });
 
 describe("MovieListEntry", () => {
-  it("", () => {
+  it("renders the title correctly", () => {
     const movieTitle = "Test Movie";
     const movie = {
       title: movieTitle,
@@ -79,5 +82,12 @@ describe("MovieListEntry", () => {
     expect(wrapper.find('[data-test-id="title-text"]').text()).toEqual(
       movieTitle
     );
+  });
+});
+
+describe("MovieListContainer", () => {
+  it("renders correctly with Store", () => {
+    const wrapper = mountWithProvider(<ConnectedMovieListContainer />);
+    expect(wrapper.find(MovieListEntry)).toHaveLength(20);
   });
 });
