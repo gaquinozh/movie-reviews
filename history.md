@@ -205,3 +205,45 @@ Create the `toJS` component. Use the code from the
 [Redux Docs](https://redux.js.org/recipes/#using-immutable.js-with-redux).
 
 Wrap the `MovieList` and `MovieDetail` components with the toJS HOC.
+
+## Configure the Backend
+
+Add the `REACT_APP_BACKEND_URL="http://localhost:8080/api"` property to your .env.local file in the project root.
+Restart the dev server.
+
+## Redux-Saga
+
+Install Redux-Saga and Axios
+
+    yarn add redux-saga axios
+
+Create the missing actions and action creators `MOVIES_REQUESTED`,
+`MOVIE_DETAILS_REQUESTED` and `MOVIE_LOAD_ERROR`.
+
+Add the constant `BACKEND_URL` to constants.js. Assign it the
+`BACKEND_URL` environment variable.
+
+Add the saga middleware and root saga as described in the
+[Redux Saga Tutorial](https://redux-saga.js.org/docs/introduction/BeginnerTutorial.html)
+The root saga currently only starts one saga: The yet to be defined movies-saga.
+Add the sagaMiddleware to `state/index.js` or wherever you have placed the`createStore`call.
+Use [compose()](https://redux.js.org/api-reference/compose) in `createStore` to
+compose the middlewares (the saga middleware and the devtools extensions).
+
+Replace the `movieDataReceived` action in `MovieListContainer` with the
+`moviesRequested` action.
+
+Create the `loadMovies` saga. Inject `axios.get` so the saga is testable:
+Get the movies from the `${BACKEND_URL}/movies` endpoint and send out a `movieDataReceived`
+action with the result data.
+In case of an error send out the `movieLoadError` action with the error.
+
+Create the `moviesSaga` as default export. It listens to the `MOVIES_REQUESTED` action and
+triggers the `loadMovies` saga. Pass on the DI methods (get) here as well.
+
+Create the `loadMovieDetails` saga. This saga takes the get method and the action payload.
+It sends out a `movieDetailDataReceived` or a `movieLoadError` action.
+
+Adjust the movies reducer to work with the new data structure that gets sent back from the API.
+
+Test the app. List and detail views should be working.

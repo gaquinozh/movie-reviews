@@ -6,7 +6,7 @@ import { moviesSelectors, moviesActions } from "../../state/movies";
 
 class MovieDetailContainer extends PureComponent {
   componentDidMount() {
-    this.props.movieDetailDataReceived("181808", movieDetailData);
+    this.props.movieDetailsRequested(this.props.match.params.id);
   }
 
   render() {
@@ -19,7 +19,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const actions = {
-  movieDetailDataReceived: moviesActions.movieDetailDataReceived
+  movieDetailsRequested: moviesActions.movieDetailsRequested
 };
 
 export default connect(mapStateToProps, actions)(MovieDetailContainer);

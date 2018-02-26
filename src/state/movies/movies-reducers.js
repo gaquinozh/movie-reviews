@@ -30,12 +30,12 @@ export default function moviesReducer(state, action) {
       return state.set("overviews", overviews).set("displayList", displayList);
 
     case actions.MOVIE_DETAIL_DATA_RECEIVED:
-      const movieInfo = new MovieInfo(fromJS(payload.movie.info));
+      const movieInfo = new MovieInfo(fromJS(payload.movie));
       return state.setIn(
         ["details", payload.id],
         Map({
           info: movieInfo,
-          reviews: payload.movie.reviews
+          reviews: payload.reviews
         })
       );
 
