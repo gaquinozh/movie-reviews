@@ -104,5 +104,10 @@
   "devDependencies": {
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.5.0"
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:8080"
+    }
   }
 }
