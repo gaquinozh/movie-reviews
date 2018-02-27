@@ -208,7 +208,38 @@ Wrap the `MovieList` and `MovieDetail` components with the toJS HOC.
 
 ## Configure the Backend
 
+### With Proxy
+
+Add the `REACT_APP_BACKEND_URL="/api"` property to your .env.local file in the project root. If the File doesn't exist create it.
+
+Modify your package.json by adding
+
+    "proxy": {
+      "/api": {
+        "target": "http://localhost:8080" // Or wherever your API is located
+      }
+    }
+
+This will forward calls to /api to http://localhost:8080/api
+
+Restart the dev server.
+
+### Without Proxy
+
+!!! Works only if you have your API installed on your local machine.
+
+To install the Backend on your Local get MongoDB
+https://www.mongodb.com/download-center?jmp=nav#community
+
+Clone the API Project from github
+
+    git clone git@github.com:gaquinozh/movie-app-api.git
+
+Follow the installation Steps on the Readme
+https://github.com/gaquinozh/movie-app-api/blob/master/README.md
+
 Add the `REACT_APP_BACKEND_URL="http://localhost:8080/api"` property to your .env.local file in the project root.
+
 Restart the dev server.
 
 ## Redux-Saga
