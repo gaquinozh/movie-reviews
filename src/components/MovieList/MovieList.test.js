@@ -16,6 +16,12 @@ describe("MovieListContainer", () => {
     expect(wrapper.contains(<MovieList movies={[]} />)).toEqual(true);
     expect(movieDataReceived.mock.calls.length).toBe(1);
   });
+
+  it("MovieList calls componentDidMount", () => {
+    const spy = jest.spyOn(MovieListContainer.prototype, "componentDidMount");
+    shallow(<MovieListContainer movieDataReceived={jest.fn()} movies={[]} />);
+    expect(spy).toHaveBeenCalled();
+  });
 });
 
 describe("MovieList", () => {

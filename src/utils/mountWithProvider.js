@@ -13,8 +13,8 @@ export const mountWithProvider = (component, state) => {
   const store = createStore(rootReducer, initialState);
 
   return mount(
-    <BrowserRouter>
-      <Provider store={store}>{component}</Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>{component}</BrowserRouter>
+    </Provider>
   );
 };
