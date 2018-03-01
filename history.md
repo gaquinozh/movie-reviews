@@ -24,10 +24,34 @@ Now eject Webpack
 
 Notice the changes that took place after ejecting the app.
 
+Remove the call to `registerServiceWorker()` from [`src/index.js`](src/index.js).
+
+Now let us prepare the workplace for developing the app.
+Change the file structure of your /src according to the following.
+Some of the folders are staying empty for the moment but we're going to use them soon.
+
+    src/
+      __fixtures__/
+      assets/
+        images/
+          logo.svg
+      components/
+        App/
+          App.js
+          App.test.js
+      config/
+      state/
+        movies/
+        user/
+      styles/
+        App.css
+        index.css
+
+
+Do the refactoring needed to make the app work again.
+
 Read the [Readme](create-react-app-readme.md) and follow the instructions up to
 (not including) adding Bootstrap.
-
-Remove the call to `registerServiceWorker()` from [`src/index.js`](src/index.js).
 
 ## First Component
 
@@ -48,7 +72,7 @@ Download the foundation settings file from
 Remove the existing css files and create a new index.scss and \_app.scss file.
 Add the following to the index.scss file:
 
-@import './settings';
+@import './settings'; // ToDo @Simon where is this file from?
 @import 'foundation';
 
 @include foundation-everything;
@@ -311,7 +335,7 @@ Check with the Redux-Devtools if the `SUBMIT_REVIEW_REQUESTED` action is sent ou
 
 ### Excercise 3
 
-Create the `submitMovieReivew` saga. Inject axios.post.
+Create the `submitMovieReview` saga. Inject axios.post.
 If you have not already done so in the component, extend the payload with
 the `publication_date` property that contains the current date as ISO string.
 
