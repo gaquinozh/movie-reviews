@@ -217,6 +217,3 @@ Write tests to reach the most highest test coverage. Start by testing the Compon
 Test your reducers, selectors and actions - Keep in mind that those are just pure functions.
 
 Advanced: Try to test a connected component.
-
-You might make use of redux-mock-store to dispatch some redux actions.
-A simple doc can be found [here](http://arnaudbenard.com/redux-mock-store/)
